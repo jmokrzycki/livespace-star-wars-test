@@ -1,5 +1,7 @@
-async function getAllCharacters() {
-    const initialResponse = await fetch("https://swapi.dev/api/people/");
+import { swapiBaseUrl } from "./baseUrls";
+
+async function getAllCharactersSortedByName() {
+    const initialResponse = await fetch(`${swapiBaseUrl}/people/`);
     const initialDataJson = await initialResponse.json();
     const pages = Math.ceil(
       initialDataJson.count / initialDataJson.results.length
@@ -7,7 +9,7 @@ async function getAllCharacters() {
 
     const fetchFunctions = [];
     for (let i = 2; i <= pages; i++) {
-      fetchFunctions.push(fetch(`https://swapi.dev/api/people/?page=${i}`));
+      fetchFunctions.push(fetch(`${swapiBaseUrl}/people/?page=${i}`));
     }
 
     const responses = await Promise.all(fetchFunctions);
@@ -20,7 +22,11 @@ async function getAllCharacters() {
       initialDataJson.results
     );
 
-    return allCharacters;
+    const charactersSortedByName = allCharacters.sort((a, b) =>
+        a.name.localeCompare(b.name)
+    );
+
+    return charactersSortedByName;
 }
 
-export default getAllCharacters;
+export default getAllCharactersSortedByName;

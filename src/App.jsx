@@ -1,25 +1,24 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useEffect } from "react";
-import { useState } from "react";
-import getAllCharacters from "./common/getAllCharacters";
+import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import Entity from "./components/Entity";
+import List from "./components/List";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    getAllCharacters().then((characters) => {
-      const charactersSortedByName = characters.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      console.log(charactersSortedByName);
-      setCharacters(charactersSortedByName);
-    });
-  }, []);
+  const router = createBrowserRouter([
+    {
+      path: "/:type",
+      exact: true,
+      element: <List />,
+    },
+    {
+      path: "/:type/:id",
+      element: <Entity />,
+    },
+  ]);
 
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <RouterProvider router={router} />
     </div>
   );
 }
