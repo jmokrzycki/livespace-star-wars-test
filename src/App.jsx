@@ -1,7 +1,7 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
-import Entity from "./components/Entity";
-import List from "./components/List";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import People from "./People/People";
+import List from "./List/List";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,8 +11,8 @@ function App() {
       element: <List />,
     },
     {
-      path: "/:type/:id",
-      element: <Entity />,
+      path: "/people/:id",
+      element: <People />,
     },
   ]);
 
