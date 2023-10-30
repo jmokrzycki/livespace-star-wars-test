@@ -1,4 +1,4 @@
-import { EntitySimpleData } from "../../../common/types.ts";
+import { EntitySimpleData } from "../../../common/types/index.js";
 
 export interface TextInfoProps {
   caption: string;

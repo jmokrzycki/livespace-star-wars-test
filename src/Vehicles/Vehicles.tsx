@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { TextInfo, ArrayInfo } from "../components/EntityInfo";
-import { EntitySimpleData } from "../common/types.ts";
+import { EntitySimpleData } from "../common/types";
 import { Vehicle } from "./types/types";
 
-function Vehicles() {
+const Vehicles: React.FC = () => {
   const { id } = useParams();
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [pilots, setPilots] = useState<EntitySimpleData[]>([]);
@@ -32,11 +32,7 @@ function Vehicles() {
       <div className="vehicle">
         {vehicle && (
           <>
-            <img
-              className="card__image"
-              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-              alt=""
-            />
+            <img className="card__image" src="/no-image.jpg" alt="" />
             <TextInfo caption="Name:" text={vehicle.name} />
             <TextInfo caption="Type:" text={vehicle.type} />
             <ArrayInfo caption="Pilots:" data={pilots} />
@@ -46,6 +42,6 @@ function Vehicles() {
       </div>
     </div>
   );
-}
+};
 
 export default Vehicles;

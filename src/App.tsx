@@ -2,7 +2,6 @@ import "./App.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Navigate,
 } from "react-router-dom";
 import People from "./People/People";
@@ -11,7 +10,7 @@ import Vehicles from "./Vehicles/Vehicles";
 import List from "./List/List";
 import Wrapper from "./components/Wrapper/Wrapper";
 
-function App() {
+const App: React.FC = () => {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -56,6 +55,6 @@ function App() {
       <RouterProvider router={router} />
     </div>
   );
-}
+};
 
 export default App;

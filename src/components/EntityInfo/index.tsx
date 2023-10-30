@@ -5,8 +5,7 @@ import { TextInfoProps, LinkInfoProps, ArrayInfoProps } from "./types/index";
 export const TextInfo: React.FC<TextInfoProps> = ({ caption, text }) => {
   return (
     <p>
-      <span>{caption}</span>
-      <span>{text ? text : "n/a"}</span>
+      <span>{caption}</span> <span>{text ? text : "n/a"}</span>
     </p>
   );
 };
@@ -23,7 +22,7 @@ export const LinkInfo: React.FC<LinkInfoProps> = ({ caption, data }) => {
           {data.name}
         </Link>
       ) : (
-        <span>"n/a"</span>
+        <span>n/a</span>
       )}
     </p>
   );
@@ -45,7 +44,7 @@ export const ArrayInfo: React.FC<ArrayInfoProps> = ({ caption, data }) => {
           </Link>
         ))
       ) : (
-        <span>"n/a"</span>
+        <span>n/a</span>
       )}
     </p>
   );

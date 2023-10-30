@@ -6,7 +6,7 @@ import { fetchData } from "../common/functions";
 import { CharactersState } from "./types";
 import "./styles.scss";
 
-function List() {
+const List: React.FC = () => {
   const { type } = useParams();
 
   const [characters, setCharacters] = useState<CharactersState>({
@@ -52,11 +52,7 @@ function List() {
               to={character.url.replaceAll(swapiBaseUrl, "")}
               className="list__link"
             >
-              <img
-                className="card__image"
-                src={"./no-image.jpg"}
-                alt="Entity"
-              />
+              <img className="card__image" src={"./no-image.jpg"} alt="" />
               <div className="card__caption">{character.name}</div>
             </Link>
           </div>
@@ -64,6 +60,6 @@ function List() {
       </div>
     </div>
   );
-}
+};
 
 export default List;

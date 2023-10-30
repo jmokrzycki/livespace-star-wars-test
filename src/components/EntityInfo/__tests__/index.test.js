@@ -35,7 +35,7 @@ describe("TextInfo component", () => {
       });
     });
   
-    describe.only("ArrayInfo component", () => {
+    describe("ArrayInfo component", () => {
         test("it should render caption and an array of links when data is provided", () => {
           const data = [
             { name: "Link 1", url: "https://example.com/1" },

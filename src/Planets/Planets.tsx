@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { TextInfo, ArrayInfo } from "../components/EntityInfo";
-import { EntitySimpleData } from "../common/types.ts";
+import { EntitySimpleData } from "../common/types";
 import { Planet } from "./types";
 
-function Planets() {
+const Planets: React.FC = () => {
   const { id } = useParams();
   const [planet, setPlanet] = useState<Planet | null>(null);
   const [residents, setResidents] = useState<EntitySimpleData[]>([]);
@@ -30,11 +30,7 @@ function Planets() {
       <div className="planet">
         {planet && (
           <>
-            <img
-              className="card__image"
-              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-              alt=""
-            />
+            <img className="card__image" src="/no-image.jpg" alt="" />
             <TextInfo caption="Name:" text={planet.name} />
             <TextInfo caption="Type:" text={planet.terrain} />
             <ArrayInfo caption="Residents:" data={residents} />
@@ -44,6 +40,6 @@ function Planets() {
       </div>
     </div>
   );
-}
+};
 
 export default Planets;
