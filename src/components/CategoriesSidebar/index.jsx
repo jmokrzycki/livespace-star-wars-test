@@ -4,7 +4,7 @@ import "./style.scss";
 function CategoriesList() {
   return (
     <div className="categoriesSidebar">
-      <img src="/logo.svg" />
+      <img src="/logo.svg" alt="" />
       <Link to={"/people"} className="categoriesSidebar__link">
         People
       </Link>

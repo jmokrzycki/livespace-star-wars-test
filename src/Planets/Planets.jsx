@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
-import "./styles.scss";
+import { TextInfo, ArrayInfo } from "../components/EntityInfo";
 
 function Planets() {
   const { id } = useParams();
@@ -14,7 +14,6 @@ function Planets() {
     fetchData(`${swapiBaseUrl}/planets/${id}`).then((planet) => {
       if (planet !== null) {
         setPlanet(planet);
-
         fetchArrayData(planet.residents).then((residents) =>
           setResidents(residents)
         );
@@ -27,24 +26,19 @@ function Planets() {
   return (
     <div className="container">
       <div className="planet">
-        <img
-          className="card__image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt=""
-        />
-        <div>{planet.name}</div>
-        <div>{planet.terrain}</div>
-
-        {residents &&
-          residents.map((resident) => (
-            <Link
-              to={resident.url && resident.url.replaceAll(swapiBaseUrl, "")}
-              className="link"
-              key={resident.url}
-            >
-              {resident.name}
-            </Link>
-          ))}
+        {planet && (
+          <>
+            <img
+              className="card__image"
+              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+              alt=""
+            />
+            <TextInfo caption="Name:" text={planet.name} />
+            <TextInfo caption="Type:" text={planet.terrain} />
+            <ArrayInfo caption="Residents:" data={residents} />
+          </>
+        )}
+        {!planet.name && "Not found"}
       </div>
     </div>
   );

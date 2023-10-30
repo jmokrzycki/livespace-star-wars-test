@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
-import "./styles.scss";
+import { TextInfo, ArrayInfo } from "../components/EntityInfo";
 
 function Vehicles() {
   const { id } = useParams();
@@ -28,28 +28,19 @@ function Vehicles() {
   return (
     <div className="container">
       <div className="vehicle">
-        {vehicle && (
+        {vehicle.name && (
           <>
             <img
               className="card__image"
               src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
               alt=""
             />
-            <div>{vehicle.name}</div>
-            <div>{vehicle.vehicle_class}</div>
-            {pilots &&
-              pilots.map((pilot) => (
-                <Link
-                  to={pilot.url && pilot.url.replaceAll(swapiBaseUrl, "")}
-                  className="link"
-                  key={pilot.url}
-                >
-                  {pilot.name}
-                </Link>
-              ))}
+            <TextInfo caption="Name:" text={vehicle.name} />
+            <TextInfo caption="Type:" text={vehicle.type} />
+            <ArrayInfo caption="Pilots:" data={pilots} />
           </>
         )}
-        {!vehicle && "Not found"}
+        {!vehicle.name && "Not found"}
       </div>
     </div>
   );

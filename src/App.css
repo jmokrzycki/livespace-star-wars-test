@@ -2,3 +2,20 @@
   max-width: 1500px;
   margin: auto;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+.entity {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  color: #ffee58;
+  text-decoration: none;
+}
