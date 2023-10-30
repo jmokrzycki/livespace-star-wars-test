@@ -1,5 +1,10 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import People from "./People/People";
 import Planets from "./Planets/Planets";
 import Vehicles from "./Vehicles/Vehicles";
@@ -8,6 +13,11 @@ import Wrapper from "./components/Wrapper/Wrapper";
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path: "/",
+      exact: true,
+      element: <Navigate to="/people" replace={true} />,
+    },
     {
       path: "/:type",
       exact: true,
