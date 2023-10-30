@@ -1,11 +1,11 @@
-import CategoriesList from "./CategoriesList";
+import CategoriesList from "../CategoriesSidebar";
+import "./style.scss";
 
 function Wrapper({ children }) {
   return (
     <div className="wrapper">
-      <div className="sidebar">
-        <CategoriesList />
-      </div>
+      <CategoriesList />
+
       <div className="content">{children}</div>
     </div>
   );
