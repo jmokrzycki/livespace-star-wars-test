@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { swapiBaseUrl } from "../../common/baseUrls";
+import { TextInfoProps, LinkInfoProps, ArrayInfoProps } from "./types/index";
 
-export function TextInfo({ caption, text }) {
+export const TextInfo: React.FC<TextInfoProps> = ({ caption, text }) => {
   return (
     <p>
       {caption} {text ? text : "n/a"}
     </p>
   );
-}
+};
 
-export function LinkInfo({ caption, data }) {
+export const LinkInfo: React.FC<LinkInfoProps> = ({ caption, data }) => {
   return (
     <p>
       {caption}{" "}
@@ -25,17 +26,17 @@ export function LinkInfo({ caption, data }) {
       )}
     </p>
   );
-}
+};
 
-export function ArrayInfo({ caption, data }) {
+export const ArrayInfo: React.FC<ArrayInfoProps> = ({ caption, data }) => {
   console.log("data", data);
   return (
     <p>
       {caption}{" "}
-      {data && data.length
-        ? data.map((element) => (
+      {data?.length
+        ? data.map((element: { name: string; url: string }) => (
             <Link
-              to={element.url && element.url.replaceAll(swapiBaseUrl, "")}
+              to={element?.url?.replaceAll(swapiBaseUrl, "")}
               className="link"
               key={element.url}
             >
@@ -45,4 +46,4 @@ export function ArrayInfo({ caption, data }) {
         : "n/a"}
     </p>
   );
-}
+};

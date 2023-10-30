@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { TextInfo, ArrayInfo } from "../components/EntityInfo";
+import { EntitySimpleData } from "../common/types.ts";
+import { Vehicle } from "./types/types";
 
 function Vehicles() {
   const { id } = useParams();
-  const [vehicle, setVehicle] = useState({});
-  const [pilots, setPilots] = useState([]);
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
+  const [pilots, setPilots] = useState<EntitySimpleData[]>([]);
 
   useEffect(() => {
     fetchData(`${swapiBaseUrl}/vehicles/${id}`).then((vehicle) => {
@@ -20,7 +22,7 @@ function Vehicles() {
           setPilots(pilots);
         });
       } else {
-        setVehicle(false);
+        setVehicle(null);
       }
     });
   }, [id]);
@@ -28,7 +30,7 @@ function Vehicles() {
   return (
     <div className="container">
       <div className="vehicle">
-        {vehicle.name && (
+        {vehicle && (
           <>
             <img
               className="card__image"
@@ -40,7 +42,7 @@ function Vehicles() {
             <ArrayInfo caption="Pilots:" data={pilots} />
           </>
         )}
-        {!vehicle.name && "Not found"}
+        {!vehicle && "Not found"}
       </div>
     </div>
   );

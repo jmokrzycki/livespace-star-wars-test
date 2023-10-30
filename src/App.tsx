@@ -15,12 +15,10 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      exact: true,
       element: <Navigate to="/people" replace={true} />,
     },
     {
       path: "/:type",
-      exact: true,
       element: (
         <Wrapper>
           <List />

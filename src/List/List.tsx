@@ -3,13 +3,16 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { fetchData } from "../common/functions";
+import { CharactersState } from "./types";
 import "./styles.scss";
 
 function List() {
   const { type } = useParams();
 
-  const [characters, setCharacters] = useState({
+  const [characters, setCharacters] = useState<CharactersState>({
     results: [],
+    previous: null,
+    next: null,
   });
 
   useEffect(() => {
@@ -18,14 +21,13 @@ function List() {
     );
   }, [type]);
 
-  const hadleClick = (address) => {
+  const hadleClick = (address: string | null) => {
     fetchData(address).then((characters) => setCharacters(characters));
   };
 
   return (
     <div className="container">
       <h1 className="title">{type}</h1>
-
       <div className="navigation">
         <button
           className="navigation__button"

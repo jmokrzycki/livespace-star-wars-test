@@ -1,16 +1,21 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { TextInfo, LinkInfo, ArrayInfo } from "../components/EntityInfo";
+import { EntitySimpleData } from "../common/types.ts";
+import { Character } from "./types";
 
 function People() {
   const { id } = useParams();
-  const [character, setCharacter] = useState({});
-  const [homeworld, setHomeworld] = useState({});
-  const [vehicles, setVehicles] = useState([]);
-  const [spieces, setSpieces] = useState([]);
+  const [character, setCharacter] = useState<Character | null>({});
+  const [homeworld, setHomeworld] = useState<EntitySimpleData>({
+    name: "n/a",
+    url: "",
+  });
+  const [vehicles, setVehicles] = useState<EntitySimpleData[]>([]);
+  const [spieces, setSpieces] = useState<EntitySimpleData[]>([]);
 
   useEffect(() => {
     fetchData(`${swapiBaseUrl}/people/${id}`).then((character) => {
@@ -27,7 +32,7 @@ function People() {
           setSpieces(spieces)
         );
       } else {
-        setCharacter(false);
+        setCharacter(null);
       }
     });
   }, [id]);
@@ -35,20 +40,20 @@ function People() {
   return (
     <div className="container">
       <div className="character">
-        {character.name && (
+        {character && (
           <>
             <img
               className="card__image"
               src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
               alt=""
             />
-            <TextInfo caption="Name:" data={character} />
+            <TextInfo caption="Name:" text={character.name} />
             <LinkInfo caption="Homeworld:" data={homeworld} />
             <ArrayInfo caption="Vehicles:" data={vehicles} />
             <ArrayInfo caption="Spieces:" data={spieces} />
           </>
         )}
-        {!character.name && "Not found"}
+        {!character && "Not found"}
       </div>
     </div>
   );

@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { TextInfo, ArrayInfo } from "../components/EntityInfo";
+import { EntitySimpleData } from "../common/types.ts";
+import { Planet } from "./types";
 
 function Planets() {
   const { id } = useParams();
-  const [planet, setPlanet] = useState({});
-  const [residents, setResidents] = useState([]);
+  const [planet, setPlanet] = useState<Planet | null>(null);
+  const [residents, setResidents] = useState<EntitySimpleData[]>([]);
 
   useEffect(() => {
     fetchData(`${swapiBaseUrl}/planets/${id}`).then((planet) => {
@@ -18,7 +20,7 @@ function Planets() {
           setResidents(residents)
         );
       } else {
-        setPlanet(false);
+        setPlanet(null);
       }
     });
   }, [id]);
@@ -38,7 +40,7 @@ function Planets() {
             <ArrayInfo caption="Residents:" data={residents} />
           </>
         )}
-        {!planet.name && "Not found"}
+        {!planet && "Not found"}
       </div>
     </div>
   );
