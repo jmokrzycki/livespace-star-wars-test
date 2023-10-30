@@ -3,36 +3,44 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchData, fetchArrayData } from "../common/functions";
 import { swapiBaseUrl } from "../common/baseUrls";
-import CategotiesList from "../components/CategoriesList";
 import "./styles.scss";
 
 function People() {
-  const { type, id } = useParams();
-  const [entity, setEntity] = useState({});
+  const { id } = useParams();
+  const [character, setCharacter] = useState({});
   const [homeworld, setHomeworld] = useState({});
   const [vehicles, setVehicles] = useState([]);
   const [spieces, setSpieces] = useState([]);
 
   useEffect(() => {
-    fetchData(`${swapiBaseUrl}/${type}/${id}`).then((entity) => {
-      setEntity(entity);
+    fetchData(`${swapiBaseUrl}/people/${id}`).then((character) => {
+      if (character !== null) {
+        setCharacter(character);
 
-      fetchData(entity.homeworld).then((homeworld) => setHomeworld(homeworld));
-      fetchArrayData(entity.vehicles).then((vehicles) => setVehicles(vehicles));
-      fetchArrayData(entity.spieces).then((spieces) => setSpieces(spieces));
+        fetchData(character.homeworld).then((homeworld) =>
+          setHomeworld(homeworld)
+        );
+        fetchArrayData(character.vehicles).then((vehicles) =>
+          setVehicles(vehicles)
+        );
+        fetchArrayData(character.spieces).then((spieces) =>
+          setSpieces(spieces)
+        );
+      } else {
+        setCharacter(false);
+      }
     });
-  }, [type, id]);
+  }, [id]);
 
   return (
     <div className="container">
-      <CategotiesList />
-      <div className="entity">
+      <div className="character">
         <img
           className="card__image"
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt="Entity"
+          alt=""
         />
-        <div>{entity.name}</div>
+        <div>{character.name}</div>
 
         {homeworld && (
           <Link

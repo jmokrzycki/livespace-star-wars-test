@@ -1,8 +1,12 @@
 export const fetchData = async (url) => {
-    const data = await fetch(url);
-    const json = await data.json();
-    
-    return json;
+    const response = await fetch(url);
+
+    if(response.ok) {
+      const json = await response.json();
+      return json;
+    } else {
+      return null;
+    }
 };
 
 export const fetchArrayData = async (urlsList) => {

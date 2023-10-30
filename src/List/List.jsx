@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { swapiBaseUrl } from "../common/baseUrls";
 import { fetchData } from "../common/functions";
-import CategotiesList from "../components/CategoriesList";
 import "./styles.scss";
 
 function List() {
@@ -14,7 +13,6 @@ function List() {
   });
 
   useEffect(() => {
-    console.log(type);
     fetchData(`${swapiBaseUrl}/${type}/`).then((characters) =>
       setCharacters(characters)
     );
@@ -26,7 +24,6 @@ function List() {
 
   return (
     <div className="container">
-      <CategotiesList />
       <div className="list">
         {characters.results.map((character) => (
           <div className="card" key={character.url}>
