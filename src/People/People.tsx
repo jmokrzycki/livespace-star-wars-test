@@ -15,22 +15,16 @@ const People: React.FC = () => {
     url: "",
   });
   const [vehicles, setVehicles] = useState<EntitySimpleData[]>([]);
-  const [spieces, setSpieces] = useState<EntitySimpleData[]>([]);
+  const [species, setSpecies] = useState<EntitySimpleData[]>([]);
 
   useEffect(() => {
     fetchData(`${swapiBaseUrl}/people/${id}`).then((character) => {
       if (character !== null) {
         setCharacter(character);
 
-        fetchData(character.homeworld).then((homeworld) =>
-          setHomeworld(homeworld)
-        );
-        fetchArrayData(character.vehicles).then((vehicles) =>
-          setVehicles(vehicles)
-        );
-        fetchArrayData(character.spieces).then((spieces) =>
-          setSpieces(spieces)
-        );
+        fetchData(character.homeworld).then((homeworld) => setHomeworld(homeworld));
+        fetchArrayData(character.vehicles).then((vehicles) => setVehicles(vehicles));
+        fetchArrayData(character.spieces).then((spieces) => setSpecies(spieces));
       } else {
         setCharacter(null);
       }
@@ -42,14 +36,14 @@ const People: React.FC = () => {
       <div className="character">
         {character && (
           <>
-            <img className="card__image" src="/no-image.jpg" alt="" />
+            <img className="card__image" src="/no-image.jpg" alt={`Image of ${character.name}`} />
             <TextInfo caption="Name:" text={character.name} />
             <LinkInfo caption="Homeworld:" data={homeworld} />
             <ArrayInfo caption="Vehicles:" data={vehicles} />
-            <ArrayInfo caption="Spieces:" data={spieces} />
+            <ArrayInfo caption="Spieces:" data={species} />
           </>
         )}
-        {!character && "Not found"}
+        {!character && <span>Not found</span>}
       </div>
     </div>
   );

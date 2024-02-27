@@ -16,9 +16,7 @@ const Planets: React.FC = () => {
     fetchData(`${swapiBaseUrl}/planets/${id}`).then((planet) => {
       if (planet !== null) {
         setPlanet(planet);
-        fetchArrayData(planet.residents).then((residents) =>
-          setResidents(residents)
-        );
+        fetchArrayData(planet.residents).then((residents) => setResidents(residents));
       } else {
         setPlanet(null);
       }
@@ -30,13 +28,13 @@ const Planets: React.FC = () => {
       <div className="planet">
         {planet && (
           <>
-            <img className="card__image" src="/no-image.jpg" alt="" />
+            <img className="card__image" src="/no-image.jpg" alt={`Image of ${planet.name}`} />
             <TextInfo caption="Name:" text={planet.name} />
             <TextInfo caption="Type:" text={planet.terrain} />
             <ArrayInfo caption="Residents:" data={residents} />
           </>
         )}
-        {!planet && "Not found"}
+        {!planet && <span>Not found</span>}
       </div>
     </div>
   );

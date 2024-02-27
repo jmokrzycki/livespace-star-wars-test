@@ -16,12 +16,10 @@ const List: React.FC = () => {
   });
 
   useEffect(() => {
-    fetchData(`${swapiBaseUrl}/${type}/`).then((characters) =>
-      setCharacters(characters)
-    );
+    fetchData(`${swapiBaseUrl}/${type}/`).then((characters) => setCharacters(characters));
   }, [type]);
 
-  const hadleClick = (address: string | null) => {
+  const handleNavigation = (address: string | null) => {
     fetchData(address).then((characters) => setCharacters(characters));
   };
 
@@ -31,28 +29,27 @@ const List: React.FC = () => {
       <div className="navigation">
         <button
           className="navigation__button"
-          onClick={() => hadleClick(characters.previous)}
-          disabled={characters.previous === null}
+          onClick={() => handleNavigation(characters.previous)}
+          disabled={!characters.previous}
+          aria-label="Previous Page"
         >
-          {"<"}
+          <span aria-hidden="true">{"<"}</span>
         </button>
         <button
           className="navigation__button"
-          onClick={() => hadleClick(characters.next)}
-          disabled={characters.next === null}
+          onClick={() => handleNavigation(characters.next)}
+          disabled={!characters.next}
+          aria-label="Next Page"
         >
-          {">"}
+          <span aria-hidden="true">{">"}</span>
         </button>
       </div>
 
       <div className="list">
         {characters.results.map((character) => (
           <div className="card" key={character.url}>
-            <Link
-              to={character.url.replaceAll(swapiBaseUrl, "")}
-              className="list__link"
-            >
-              <img className="card__image" src={"./no-image.jpg"} alt="" />
+            <Link to={character.url.replaceAll(swapiBaseUrl, "")} className="list__link">
+              <img className="card__image" src={"./no-image.jpg"} alt={character.name} />
               <div className="card__caption">{character.name}</div>
             </Link>
           </div>

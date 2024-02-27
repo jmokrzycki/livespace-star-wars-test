@@ -32,13 +32,13 @@ const Vehicles: React.FC = () => {
       <div className="vehicle">
         {vehicle && (
           <>
-            <img className="card__image" src="/no-image.jpg" alt="" />
+            <img className="card__image" src="/no-image.jpg" alt={`Image of ${vehicle.name}`} />
             <TextInfo caption="Name:" text={vehicle.name} />
             <TextInfo caption="Type:" text={vehicle.type} />
             <ArrayInfo caption="Pilots:" data={pilots} />
           </>
         )}
-        {!vehicle && "Not found"}
+        {!vehicle && <span>Not found</span>}
       </div>
     </div>
   );
